@@ -102,3 +102,9 @@ If you're looking for a place to start contributing code, check out the list of 
 ## Development Notes
 
 Bowls 101 has been powered by Bootstrap. The styles are inspired in [this](https://startbootstrap.com/template-overviews/agency) template.
+
+## Credits
+
+Photos by Anna Pelzer, Dan Gold, Edgar Castrejon, Ella Olsson, Jez Timms,
+Kai Pilger, Mariana Medvedeva, Milada Vigerova, rawpixel, Tom Hermans on
+[Unsplash](https://unsplash.com/search/photos/splash)
