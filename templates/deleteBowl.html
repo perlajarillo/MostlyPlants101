@@ -1,0 +1,35 @@
+{% extends "main.html" %} {% block content %}
+<section class="bg-light" id="bowl">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12 text-center">
+        <h2 class="section-heading text-uppercase">
+          Are you sure you want to delete {{ bowlData.name }}?
+        </h2>
+
+        <form
+          action="{{ url_for('deletebowl', bowl_id = bowlData.id) }}"
+          method="post"
+        >
+          <button
+            type="submit"
+            class="btn btn-lg btn-danger btn-default delete"
+            id="submit"
+            type="submit"
+          >
+            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span
+            >Delete
+          </button>
+          <a
+            class="btn btn-info btn-lg text-uppercase js-scroll-trigger"
+            href="{{ url_for('userHome') }}"
+          >
+            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+            Cancel
+          </a>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}
