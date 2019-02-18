@@ -12,6 +12,8 @@ from oauth2client.client import FlowExchangeError
 from flask import make_response
 import requests
 import config
+from functools import wraps
+
 
 app = Flask(__name__)
 CLIENT_ID = json.loads(
@@ -24,6 +26,31 @@ Base.metadata.bind = engine
 
 DBSession = sessionmaker(bind=engine)
 session = DBSession()
+
+
+# Defining decorated view for authentication
+def login_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if 'username' in login_session:
+            return f(*args, **kwargs)
+        else:
+            flash("Please login into your account and try again")
+            return redirect('/login')
+    return decorated_function
+
+
+# Defining decorated view for authorization
+def auth_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        user_id = getUserID(login_session['email'])
+        bowl_user_id = getBowlUserID(kwargs['bowl_id'])
+        if user_id == bowl_user_id:
+            return f(*args, **kwargs)
+        else:
+            return render_template("no-authorized.html")
+    return decorated_function
 
 
 # Connect using Google credentials
@@ -175,10 +202,9 @@ def showIndex():
 
 
 # Create a new bowl
-@app.route('/makebowl',  methods=['GET', 'POST'])
+@app.route('/makebowl', methods=['GET', 'POST'])
+@login_required
 def makebowl():
-    if 'username' not in login_session:
-        return redirect('/login')
     user_id = getUserID(login_session['email'])
     if request.method == 'POST':
         f = request.form
@@ -210,10 +236,10 @@ def makebowl():
 
 
 # Edit a bowl
-@app.route('/editbowl/<int:bowl_id>',  methods=['GET', 'POST'])
+@app.route('/editbowl/<int:bowl_id>', methods=['GET', 'POST'])
+@login_required
+@auth_required
 def editbowl(bowl_id):
-    if 'username' not in login_session:
-        return redirect('/login')
     bowlData = session.query(Bowl).filter_by(id=bowl_id).one()
     bowls_ingredients = session.query(
         Bowl_Ingredient).filter_by(bowl_id=bowl_id).all()
@@ -254,10 +280,10 @@ def editbowl(bowl_id):
 
 
 # Delete a bowl
-@app.route('/deletebowl/<int:bowl_id>',  methods=['GET', 'POST'])
+@app.route('/deletebowl/<int:bowl_id>', methods=['GET', 'POST'])
+@login_required
+@auth_required
 def deletebowl(bowl_id):
-    if 'username' not in login_session:
-        return redirect('/login')
     bowlData = session.query(Bowl).filter_by(id=bowl_id).one()
     if request.method == 'POST':
         # As a bowl can contain multiple ingredients we must be sure to delete
@@ -276,9 +302,8 @@ def deletebowl(bowl_id):
 
 # Route for user home, this is the page the user will be redirected after login
 @app.route('/bowls101/userhome')
+@login_required
 def userHome():
-    if 'username' not in login_session:
-        return redirect('/login')
     # Getting user id
     user_id = getUserID(login_session['email'])
     # Getting the bowls created by the user, if any
@@ -300,7 +325,7 @@ def showLogin():
 # Create a user
 def createUser(login_session):
     newUser = User(name=login_session['username'], email=login_session[
-                   'email'], picture=login_session['picture'])
+        'email'], picture=login_session['picture'])
     session.add(newUser)
     session.commit()
     user = session.query(User).filter_by(email=login_session['email']).one()
@@ -318,6 +343,15 @@ def getUserID(email):
     try:
         user = session.query(User).filter_by(email=email).one()
         return user.id
+    except:
+        return None
+
+
+# Get bowl user id
+def getBowlUserID(bowl_id):
+    try:
+        bowl = session.query(Bowl).filter_by(id=bowl_id).one()
+        return bowl.user_id
     except:
         return None
 
