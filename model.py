@@ -14,6 +14,8 @@ class User(Base):
     id = Column(Integer, primary_key=True)
     email = Column(String(250), nullable=False)
     picture = Column(String(250))
+    bowls = relationship("Bowl", back_populates='user',
+                         cascade="all, delete, delete-orphan")
 
 
 class Ingredient(Base):
@@ -23,6 +25,8 @@ class Ingredient(Base):
     name = Column(String(30), nullable=False)
     origin = Column(String(40))
     phase = Column(String(40))
+    isInBowl = relationship("Bowl_Ingredient", back_populates='ingredient',
+                            cascade="all, delete, delete-orphan")
 
     @property
     def serialize(self):
@@ -42,6 +46,9 @@ class Bowl(Base):
     name = Column(String(50), nullable=False)
     type = Column(String(40))
     user_id = Column(Integer, ForeignKey('user.id'))
+    user = relationship("User", back_populates="bowls")
+    ingredients = relationship("Bowl_Ingredient", back_populates='bowl',
+                               cascade="all, delete, delete-orphan")
 
     @property
     def serialize(self):
@@ -60,6 +67,8 @@ class Bowl_Ingredient(Base):
     id = Column(Integer, primary_key=True)
     bowl_id = Column(Integer, ForeignKey('bowl.id'))
     ingredient_id = Column(Integer, ForeignKey('ingredient.id'))
+    bowl = relationship("Bowl", back_populates="ingredients")
+    ingredient = relationship("Ingredient", back_populates="isInBowl")
 
     @property
     def serialize(self):
