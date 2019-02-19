@@ -1,4 +1,5 @@
-from flask import Flask, render_template, url_for, request, redirect, flash, jsonify
+from flask import Flask, render_template, url_for, request, redirect, flash
+from flask import jsonify
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from model import Base, Ingredient, Bowl, Bowl_Ingredient, User
@@ -76,9 +77,8 @@ def gconnect():
         return response
 
     # Check that the access token is valid.
-    access_token = credentials.access_token
-    url = ('https://www.googleapis.com/oauth2/v1/tokeninfo?access_token=%s'
-           % access_token)
+    t = credentials.access_token
+    url = 'https://www.googleapis.com/oauth2/v1/tokeninfo?access_token=%s' % t
     h = httplib2.Http()
     result = json.loads(h.request(url, 'GET')[1])
     # If there was an error in the access token info, abort.
@@ -103,10 +103,10 @@ def gconnect():
         response.headers['Content-Type'] = 'application/json'
         return response
 
-    stored_access_token = login_session.get('access_token')
+    stored_a_token = login_session.get('access_token')
     stored_gplus_id = login_session.get('gplus_id')
-    if stored_access_token is not None and gplus_id == stored_gplus_id:
-        response = make_response(json.dumps('Current user is already connected.'),
+    if stored_a_token is not None and gplus_id == stored_gplus_id:
+        response = make_response(json.dumps('User is already connected.'),
                                  200)
         response.headers['Content-Type'] = 'application/json'
         return response
@@ -137,7 +137,8 @@ def gconnect():
     output += '!</h1>'
     output += '<img src="'
     output += login_session['picture']
-    output += ' " style = "width: 300px; height: 300px;border-radius: 150px;-webkit-border-radius: 150px;-moz-border-radius: 150px;"> '
+    output += ' " style = "width: 300px; height: 300px;border-radius: 150px;'
+    output += '-webkit-border-radius: 150px;-moz-border-radius: 150px;"> '
     flash("you are now logged in as %s" % login_session['username'])
     print "done!"
     return output
@@ -156,7 +157,8 @@ def gdisconnect():
     print 'In gdisconnect access token is %s', access_token
     print 'User name is: '
     print login_session['username']
-    url = 'https://accounts.google.com/o/oauth2/revoke?token=%s' % login_session['access_token']
+    a_token = login_session['access_token']
+    url = 'https://accounts.google.com/o/oauth2/revoke?token=%s' % a_token
     h = httplib2.Http()
     result = h.request(url, 'GET')[0]
     print 'result is '
@@ -223,16 +225,8 @@ def makebowl():
         flash('%s Successfully Created' % newBowl.name)
         return redirect(url_for('userHome'))
     else:
-        bases = session.query(Ingredient).filter_by(phase="base").all()
-        vf = session.query(Ingredient).filter_by(phase="v&f").all()
-        textures = session.query(Ingredient).filter_by(phase="texture").all()
-        proteins = session.query(Ingredient).filter_by(phase="protein").all()
-        salts = session.query(Ingredient).filter_by(phase="saltiness").all()
-        herbs = session.query(Ingredient).filter_by(phase="smoot").all()
-        sharpens = session.query(Ingredient).filter_by(phase="sharpen").all()
-        dressings = session.query(Ingredient).filter_by(phase="dressing").all()
-
-        return render_template("makeBowl.html", bases=bases, vf=vf, textures=textures, proteins=proteins, salts=salts, herbs=herbs, sharpens=sharpens, dressings=dressings)
+        ingredients = session.query(Ingredient).all()
+        return render_template("makeBowl.html", ingredients=ingredients)
 
 
 # Edit a bowl
@@ -240,18 +234,18 @@ def makebowl():
 @login_required
 @auth_required
 def editbowl(bowl_id):
-    bowlData = session.query(Bowl).filter_by(id=bowl_id).one()
+    bData = session.query(Bowl).filter_by(id=bowl_id).one()
     bowls_ingredients = session.query(
         Bowl_Ingredient).filter_by(bowl_id=bowl_id).all()
     if request.method == 'POST':
         f = request.form
-        bowlData.name = f['bowl_name']
-        bowlData.type = f['type']
-        session.add(bowlData)
+        bData.name = f['bowl_name']
+        bData.type = f['type']
+        session.add(bData)
         session.commit()
         # Delete previous ingredients so we can add the new selected, if any
-        session.execute(
-            "DELETE FROM Bowl_Ingredient WHERE bowl_id=:bowl_id", {"bowl_id": bowl_id})
+        query = "DELETE FROM Bowl_Ingredient WHERE bowl_id=:bowl_id"
+        session.execute(query, {"bowl_id": bowl_id})
         session.commit()
         for key in f.keys():
             for value in f.getlist(key):
@@ -260,23 +254,16 @@ def editbowl(bowl_id):
                         bowl_id=bowl_id, ingredient_id=value)
                     session.add(newIngredientBowl)
                     session.commit()
-        flash('%s Successfully Updated' % bowlData.name)
+        flash('%s Successfully Updated' % bData.name)
         return redirect(url_for('userHome'))
     else:
         # Creating a list that contains the bowl's ingredients ids
-        bowlsIngredients = []
+        b = []
         for i in bowls_ingredients:
-            bowlsIngredients.append(i.ingredient_id)
+            b.append(i.ingredient_id)
         # Performing queries to get ingredients by category
-        bases = session.query(Ingredient).filter_by(phase="base").all()
-        vf = session.query(Ingredient).filter_by(phase="v&f").all()
-        textures = session.query(Ingredient).filter_by(phase="texture").all()
-        proteins = session.query(Ingredient).filter_by(phase="protein").all()
-        salts = session.query(Ingredient).filter_by(phase="saltiness").all()
-        herbs = session.query(Ingredient).filter_by(phase="smoot").all()
-        sharpens = session.query(Ingredient).filter_by(phase="sharpen").all()
-        dressings = session.query(Ingredient).filter_by(phase="dressing").all()
-        return render_template("editBowl.html", bases=bases, vf=vf, textures=textures, proteins=proteins, salts=salts, herbs=herbs, sharpens=sharpens, dressings=dressings, bowlsIngredients=bowlsIngredients, bowlData=bowlData)
+        i = session.query(Ingredient).all()
+        return render_template("editBowl.html", ingr=i, bowlsIn=b, bData=bData)
 
 
 # Delete a bowl
@@ -286,12 +273,7 @@ def editbowl(bowl_id):
 def deletebowl(bowl_id):
     bowlData = session.query(Bowl).filter_by(id=bowl_id).one()
     if request.method == 'POST':
-        # As a bowl can contain multiple ingredients we must be sure to delete
-        # all of them in Bowl_Ingredient table before deleting the bowl
-        session.execute(
-            "DELETE FROM Bowl_Ingredient WHERE bowl_id=:bowl_id", {"bowl_id": bowl_id})
-        session.commit()
-        # Deleting bowl after deleting ingredients from Bowl_Ingredient
+        # Bowl's ingredients will be deleted in cascade, as defined in model
         session.delete(bowlData)
         session.commit()
         flash('%s Successfully Deleted' % bowlData.name)
@@ -317,7 +299,8 @@ def showLogin():
     state = ''.join(random.choice(string.ascii_uppercase + string.digits)
                     for x in xrange(32))
     login_session['state'] = state
-    return render_template('login.html', STATE=state, client_id=config.client_id)
+    id = config.client_id
+    return render_template('login.html', STATE=state, client_id=id)
 
 
 # User Helper Functions
@@ -343,7 +326,7 @@ def getUserID(email):
     try:
         user = session.query(User).filter_by(email=email).one()
         return user.id
-    except:
+    except ValueError:
         return None
 
 
@@ -352,7 +335,7 @@ def getBowlUserID(bowl_id):
     try:
         bowl = session.query(Bowl).filter_by(id=bowl_id).one()
         return bowl.user_id
-    except:
+    except ValueError:
         return None
 
 
