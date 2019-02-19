@@ -19,16 +19,19 @@
           />
         </div>
         <br>
-        {% for b in bases %}
-        <label for="{{ b.id }}">
-          <input
-            type="checkbox"
-            id="{{ b.id }}"
-            name="{{ b.name }}"
-            value="{{ b.id }}"
-          />
+        {% for b in ingredients %}
+          {% if b.phase=="base" %}
+            <label for="{{ b.id }}">
+              <input
+                type="checkbox"
+                id="{{ b.id }}"
+                name="{{ b.name }}"
+                value="{{ b.id }}"
+              />
+
           {{ b.name }}</label
         >
+        {% endif %}
         {% endfor %}
       </div>
       <div class="tab">
@@ -42,16 +45,18 @@
           />
         </div>
         <br>
-        {% for t in vf %}
-        <label for="{{ t.id }}">
-          <input
-            type="checkbox"
-            id="{{ t.id }}"
-            name="{{ t.name }}"
-            value="{{ t.id }}"
-          />
-          {{ t.name }}</label
-        >
+        {% for t in ingredients %}
+          {% if t.phase=="v&f" %}
+            <label for="{{ t.id }}">
+              <input
+                type="checkbox"
+                id="{{ t.id }}"
+                name="{{ t.name }}"
+                value="{{ t.id }}"
+              />
+              {{ t.name }}</label
+            >
+          {% endif %}
         {% endfor %}
       </div>
       <div class="tab">
@@ -65,16 +70,18 @@
           />
         </div>
         <br>
-        {% for x in textures %}
-        <label for="{{ x.id }}">
-          <input
-            type="checkbox"
-            id="{{ x.id }}"
-            name="{{ x.name }}"
-            value="{{ x.id }}"
-          />
-          {{ x.name }}</label
-        >
+        {% for x in ingredients %}
+          {% if x.phase=="texture" %}
+            <label for="{{ x.id }}">
+              <input
+                type="checkbox"
+                id="{{ x.id }}"
+                name="{{ x.name }}"
+                value="{{ x.id }}"
+              />
+              {{ x.name }}</label
+            >
+          {% endif %}
         {% endfor %}
       </div>
       <div class="tab">
@@ -88,16 +95,18 @@
           />
         </div>
         <br>
-        {% for p in proteins %}
-        <label for="{{ p.id }}">
-          <input
-            type="checkbox"
-            id="{{ p.id }}"
-            name="{{ p.name }}"
-            value="{{ p.id }}"
-          />
-          {{ p.name }}</label
-        >
+        {% for p in ingredients %}
+          {% if p.phase=="protein" %}
+            <label for="{{ p.id }}">
+              <input
+                type="checkbox"
+                id="{{ p.id }}"
+                name="{{ p.name }}"
+                value="{{ p.id }}"
+              />
+              {{ p.name }}</label
+            >
+          {% endif %}
         {% endfor %}
       </div>
       <div class="tab">
@@ -111,16 +120,18 @@
           />
         </div>
         <br>
-        {% for s in salts %}
-        <label for="{{ s.id }}">
-          <input
-            type="checkbox"
-            id="{{ s.id }}"
-            name="{{ s.name }}"
-            value="{{ s.id }}"
-          />
-          {{ s.name }}</label
-        >
+        {% for s in ingredients %}
+          {% if s.phase=="saltiness" %}
+            <label for="{{ s.id }}">
+              <input
+                type="checkbox"
+                id="{{ s.id }}"
+                name="{{ s.name }}"
+                value="{{ s.id }}"
+              />
+              {{ s.name }}</label
+            >
+          {% endif %}
         {% endfor %}
       </div>
       <div class="tab">
@@ -134,16 +145,18 @@
           />
         </div>
         <br>
-        {% for h in herbs %}
-        <label for="{{ h.id }}">
-          <input
-            type="checkbox"
-            id="{{ h.id }}"
-            name="{{ h.name }}"
-            value="{{ h.id }}"
-          />
-          {{ h.name }}</label
-        >
+        {% for h in ingredients %}
+          {% if h.phase=="smoot" %}
+            <label for="{{ h.id }}">
+              <input
+                type="checkbox"
+                id="{{ h.id }}"
+                name="{{ h.name }}"
+                value="{{ h.id }}"
+              />
+              {{ h.name }}</label
+            >
+          {% endif %}
         {% endfor %}
       </div>
       <div class="tab">
@@ -157,16 +170,18 @@
           />
         </div>
         <br>
-        {% for sh in sharpens %}
-        <label for="{{ sh.id }}">
-          <input
-            type="checkbox"
-            id="{{ sh.id }}"
-            name="{{ sh.name }}"
-            value="{{ sh.id }}"
-          />
-          {{ sh.name }}</label
-        >
+        {% for sh in ingredients %}
+          {% if sh.phase=="sharpen" %}
+            <label for="{{ sh.id }}">
+              <input
+                type="checkbox"
+                id="{{ sh.id }}"
+                name="{{ sh.name }}"
+                value="{{ sh.id }}"
+              />
+              {{ sh.name }}</label
+            >
+          {% endif %}
         {% endfor %}
       </div>
       <div class="tab">
@@ -180,16 +195,18 @@
           />
         </div>
         <br>
-        {% for d in dressings %}
-        <label for="{{ d.id }}">
-          <input
-            type="checkbox"
-            id="{{ d.id }}"
-            name="{{ d.name }}"
-            value="{{ d.id }}"
-          />
-          {{ d.name }}</label
-        >
+        {% for d in ingredients %}
+          {% if d.phase=="dressing" %}
+            <label for="{{ d.id }}">
+              <input
+                type="checkbox"
+                id="{{ d.id }}"
+                name="{{ d.name }}"
+                value="{{ d.id }}"
+              />
+              {{ d.name }}</label
+            >
+          {% endif %}
         {% endfor %}
       </div>
       <div class="tab">
