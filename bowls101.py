@@ -14,6 +14,7 @@ from flask import make_response
 import requests
 import config
 from functools import wraps
+from sqlalchemy.orm.exc import NoResultFound
 
 
 app = Flask(__name__)
@@ -326,7 +327,7 @@ def getUserID(email):
     try:
         user = session.query(User).filter_by(email=email).one()
         return user.id
-    except ValueError:
+    except NoResultFound:
         return None
 
 
@@ -335,7 +336,7 @@ def getBowlUserID(bowl_id):
     try:
         bowl = session.query(Bowl).filter_by(id=bowl_id).one()
         return bowl.user_id
-    except ValueError:
+    except NoResultFound:
         return None
 
 
