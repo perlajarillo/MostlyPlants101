@@ -75,11 +75,13 @@ To populate the database type from your terminal:
 
 Bowls 101 uses OAuth 2.0 to Access Google APIs. If you don't have a key or need more information visit [Google Developers Console ](https://console.developers.google.com/).Once you have your key generated download it and save it inside the repository under the name **client_secrets.json**. That file has not been uploaded in this repository for safety.
 
-You will also need to create manualy a file named "config.py" where you save your google client id as follows:
+### 7. Configure the environment
 
-`client_id="your-clientid"`
+You will also need to modify the [config.py](https://github.com/perlajarillo/bowls101/blob/master/config.py) file template provided in this repository with your google client id as follows:
 
-### 7. Start the application
+`client_id="your-clientid-goes-here"`
+
+### 8. Start the application
 
 Once you have all the dependencies and database ready, start the application by typing:
 
@@ -106,5 +108,5 @@ Bowls 101 has been powered by Bootstrap. The styles are inspired in [this](https
 ## Credits
 
 Photos by Anna Pelzer, Dan Gold, Edgar Castrejon, Ella Olsson, Jez Timms,
-Kai Pilger, Mariana Medvedeva, Milada Vigerova, rawpixel, Tom Hermans on
-[Unsplash](https://unsplash.com/search/photos/splash)
+Kai Pilger, Mariana Medvedeva, Milada Vigerova, rawpixel, Tom Hermans and Jose Aragones on
+[Unsplash](https://unsplash.com/)

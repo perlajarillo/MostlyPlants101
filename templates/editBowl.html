@@ -7,7 +7,7 @@
   </head>
     <form
       id="regForm"
-      action="{{ url_for('editbowl', bowl_id = bowlData.id) }}"
+      action="{{ url_for('editbowl', bowl_id = bData.id) }}"
       method="post"
     >
       <h1>Editing bowl</h1>
@@ -23,14 +23,15 @@
           />
         </div>
         <br>
-        {% for b in bases %}
+        {% for b in ingr %}
+          {% if b.phase=="base" %}
         <label for="{{ b.id }}">
           <input
             {%
             if
             b.id
             in
-            bowlsIngredients
+            bowlsIn
             %}
             checked
             {%
@@ -43,6 +44,7 @@
           />
           {{ b.name }}</label
         >
+        {% endif %}
         {% endfor %}
       </div>
       <div class="tab">
@@ -56,14 +58,15 @@
           />
         </div>
         <br>
-        {% for t in vf %}
+        {% for t in ingr %}
+        {% if t.phase=="v&f" %}
         <label for="{{ t.id }}">
           <input
             {%
             if
             t.id
             in
-            bowlsIngredients
+            bowlsIn
             %}
             checked
             {%
@@ -76,6 +79,7 @@
           />
           {{ t.name }}</label
         >
+        {% endif %}
         {% endfor %}
       </div>
       <div class="tab">
@@ -89,14 +93,15 @@
           />
         </div>
         <br>
-        {% for x in textures %}
+        {% for x in ingr %}
+          {% if x.phase=="texture" %}
         <label for="{{ x.id }}">
           <input
             {%
             if
             x.id
             in
-            bowlsIngredients
+            bowlsIn
             %}
             checked
             {%
@@ -109,6 +114,7 @@
           />
           {{ x.name }}</label
         >
+        {% endif %}
         {% endfor %}
       </div>
       <div class="tab">
@@ -122,14 +128,15 @@
           />
         </div>
         <br>
-        {% for p in proteins %}
-        <label for="{{ p.id }}">
+        {% for p in ingr%}
+          {% if p.phase=="protein" %}
+          <label for="{{ p.id }}">
           <input
             {%
             if
             p.id
             in
-            bowlsIngredients
+            bowlsIn
             %}
             checked
             {%
@@ -142,6 +149,7 @@
           />
           {{ p.name }}</label
         >
+        {% endif %}
         {% endfor %}
       </div>
       <div class="tab">
@@ -155,14 +163,15 @@
           />
         </div>
         <br>
-        {% for s in salts %}
+        {% for s in ingr %}
+          {% if s.phase=="saltiness" %}
         <label for="{{ s.id }}">
           <input
             {%
             if
             s.id
             in
-            bowlsIngredients
+            bowlsIn
             %}
             checked
             {%
@@ -175,6 +184,7 @@
           />
           {{ s.name }}</label
         >
+         {% endif %}
         {% endfor %}
       </div>
       <div class="tab">
@@ -188,14 +198,15 @@
           />
         </div>
         <br>
-        {% for h in herbs %}
+        {% for h in ingr %}
+        {% if h.phase=="smoot" %}
         <label for="{{ h.id }}">
           <input
             {%
             if
             h.id
             in
-            bowlsIngredients
+            bowlsIn
             %}
             checked
             {%
@@ -208,6 +219,7 @@
           />
           {{ h.name }}</label
         >
+          {% endif %}
         {% endfor %}
       </div>
       <div class="tab">
@@ -221,14 +233,15 @@
           />
         </div>
         <br>
-        {% for sh in sharpens %}
-        <label for="{{ sh.id }}">
+        {% for sh in ingr %}
+          {% if sh.phase=="sharpen" %}
+          <label for="{{ sh.id }}">
           <input
             {%
             if
             sh.id
             in
-            bowlsIngredients
+            bowlsIn
             %}
             checked
             {%
@@ -241,6 +254,7 @@
           />
           {{ sh.name }}</label
         >
+        {% endif %}
         {% endfor %}
       </div>
       <div class="tab">
@@ -254,26 +268,28 @@
           />
         </div>
         <br>
-        {% for d in dressings %}
-        <label for="{{ d.id }}">
-          <input
-            {%
-            if
-            d.id
-            in
-            bowlsIngredients
-            %}
-            checked
-            {%
-            endif
-            %}
-            type="checkbox"
-            id="{{ d.id }}"
-            name="{{ d.name }}"
-            value="{{ d.id }}"
-          />
-          {{ d.name }}</label
-        >
+        {% for d in ingr %}
+          {% if d.phase=="dressing" %}
+              <label for="{{ d.id }}">
+              <input
+                {%
+                if
+                d.id
+                in
+                bowlsIn
+                %}
+                checked
+                {%
+                endif
+                %}
+                type="checkbox"
+                id="{{ d.id }}"
+                name="{{ d.name }}"
+                value="{{ d.id }}"
+              />
+              {{ d.name }}</label
+            >
+          {% endif %}
         {% endfor %}
       </div>
       <div class="tab">
@@ -293,15 +309,15 @@
             placeholder="Bowl's name..."
             oninput="this.className = ''"
             name="bowl_name"
-            value="{{ bowlData.name }}"
+            value="{{ bData.name }}"
           />
         </p>
         <p>
           <label for="type">Select a type:</label>
           <select class="form-control" id="type" name="type">
-            <option {% if bowlData.type == "Vegan" %} selected {% endif%}>Vegan</option>
-            <option {% if bowlData.type == "Vegetarian" %} selected {% endif%}>Vegetarian</option>
-            <option {% if bowlData.type == "Contains meat" %} selected {% endif%}>Contains meat</option>
+            <option {% if bData.type == "Vegan" %} selected {% endif%}>Vegan</option>
+            <option {% if bData.type == "Vegetarian" %} selected {% endif%}>Vegetarian</option>
+            <option {% if bData.type == "Contains meat" %} selected {% endif%}>Contains meat</option>
           </select>
         </p>
       </div>

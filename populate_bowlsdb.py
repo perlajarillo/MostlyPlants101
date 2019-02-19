@@ -29,7 +29,7 @@ session.add(ingredient4)
 session.commit()
 
 
-#vegetables and fruits
+# vegetables and fruits
 
 ingredient5 = Ingredient(name="Broccoli", origin="vegetable", phase="v&f")
 session.add(ingredient5)
