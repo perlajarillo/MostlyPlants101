@@ -1,10 +1,10 @@
-# Bowls 101
+# Mostly Plants 101
 
 Author: Perla Jarillo
 
 ## About
 
-Bowls 101 promotes healthy alimentation by teaching the basics to make bowls in 8 steps.
+Mostly Plants 101 promotes healthy alimentation. The first part of this app is the module Bowls 101 that teach the basics to make balanced bowls in 8 steps.
 
 ## Dependencies and resources:
 
