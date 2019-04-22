@@ -2,8 +2,10 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
 from model import Ingredient, Base
+import config
 
-engine = create_engine('sqlite:///bowls101.db')
+db_string = config.db_credentials_string
+engine = create_engine(db_string)
 
 Base.metadata.bind = engine
 

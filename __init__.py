@@ -19,11 +19,13 @@ from sqlalchemy.orm.exc import NoResultFound
 
 app = Flask(__name__)
 CLIENT_ID = json.loads(
-    open('client_secrets.json', 'r').read())['web']['client_id']
+    open('/var/www/html/bowls101/client_secrets.json', 'r').read())['web']['client_id']
 APPLICATION_NAME = "Bowls 101"
 
 
-engine = create_engine('sqlite:///bowls101.db')
+db_string = config.db_credentials_string
+engine = create_engine(db_string)
+
 Base.metadata.bind = engine
 
 DBSession = sessionmaker(bind=engine)
@@ -68,7 +70,7 @@ def gconnect():
 
     try:
         # Upgrade the authorization code into a credentials object
-        oauth_flow = flow_from_clientsecrets('client_secrets.json', scope='')
+	oauth_flow = flow_from_clientsecrets('/var/www/html/bowls101/client_secrets.json', scope='')
         oauth_flow.redirect_uri = 'postmessage'
         credentials = oauth_flow.step2_exchange(code)
     except FlowExchangeError:
@@ -341,6 +343,6 @@ def getBowlUserID(bowl_id):
 
 
 if __name__ == '__main__':
-    app.secret_key = 'super_secret_key'
-    app.debug = True
-    app.run(host='0.0.0.0', port=5000, threaded=False)
+    #app.secret_key = 'super_secret_key'
+    #app.debug = True
+    app.run(threaded=False)
