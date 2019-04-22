@@ -73,7 +73,7 @@ To populate the database type from your terminal:
 
 ### 6. Create yor Google keys
 
-Bowls 101 uses OAuth 2.0 to Access Google APIs. If you don't have a key or need more information visit [Google Developers Console ](https://console.developers.google.com/).Once you have your key generated download it and save it inside the repository under the name **client_secrets.json**. That file has not been uploaded in this repository for safety.
+Mostly Plants 101 uses OAuth 2.0 to Access Google APIs. If you don't have a key or need more information visit [Google Developers Console ](https://console.developers.google.com/).Once you have your key generated download it and save it inside the repository under the name **client_secrets.json**. That file has not been uploaded in this repository for safety.
 
 ### 7. Configure the environment
 
@@ -87,7 +87,7 @@ Once you have all the dependencies and database ready, start the application by 
 
 `python bowls101.py`
 
-## How to use Bowls 101
+## How to use Mostly Plants 101
 
 To start creating bowls, log in into the app using your Google credentials. You will be redirected after some seconds to your principal page, where you can start interacting with the app: create, modify, delete a bowl. The bowls has been separated by categories: vegan, vegetarian and contains meat.
 
@@ -103,7 +103,7 @@ If you're looking for a place to start contributing code, check out the list of 
 
 ## Development Notes
 
-Bowls 101 has been powered by Bootstrap. The styles are inspired in [this](https://startbootstrap.com/template-overviews/agency) template.
+Mostly Plants 101 has been powered by Bootstrap. The styles are inspired in [this](https://startbootstrap.com/template-overviews/agency) template.
 
 ## Credits
 
