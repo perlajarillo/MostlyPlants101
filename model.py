@@ -3,6 +3,7 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 from sqlalchemy import create_engine
 from passlib.apps import custom_app_context as pwd_context
+import config
 
 Base = declarative_base()
 
@@ -79,8 +80,8 @@ class Bowl_Ingredient(Base):
             'id': self.id,
         }
 
-
-engine = create_engine('sqlite:///bowls101.db')
+db_string = config.db_credentials_string
+engine = create_engine(db_string)
 
 
 Base.metadata.create_all(engine)
