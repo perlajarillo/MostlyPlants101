@@ -77,9 +77,15 @@ Mostly Plants 101 uses OAuth 2.0 to Access Google APIs. If you don't have a key 
 
 ### 7. Configure the environment
 
-You will also need to modify the [config.py](https://github.com/perlajarillo/bowls101/blob/master/config.py) file template provided in this repository with your google client id as follows:
+You will also need to create a file named config.py and set client_id variable with your google client id as follows:
 
 `client_id="your-clientid-goes-here"`
+
+Also, you will need to set the db_credentials_string with the database URL to connect with your database server. 
+
+`db_credentials_string = "your-database-URL"`
+
+If you want to know more about database URL for engine configuration see  [Engine Configuration — SQLAlchemy 1.3 Documentation](https://docs.sqlalchemy.org/en/13/core/engines.html#postgresql).
 
 ### 8. Start the application
 
