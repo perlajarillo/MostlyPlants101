@@ -75,3 +75,7 @@ button:hover {
 .step.finish {
   background-color: #4caf50;
 }
+
+h4 {
+  margin-top: 15px;
+}
