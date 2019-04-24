@@ -11,289 +11,8 @@
       method="post"
     >
       <h1>Editing bowl</h1>
-      <!-- One "tab" for each step in the form: -->
-      <div class="tab">
-        <h4>Choose your base:</h4>
-        <div class="processimg">
-          <img
-            class="rounded-pill"
-            src="{{ url_for('static', filename='img/lou-liebau.jpg') }}"
-            alt="Photo by Lou Liebau on Unsplash"
-            style="width:100%"
-          />
-        </div>
-        <br>
-        {% for b in ingr %}
-          {% if b.phase=="base" %}
-        <label for="{{ b.id }}">
-          <input
-            {%
-            if
-            b.id
-            in
-            bowlsIn
-            %}
-            checked
-            {%
-            endif
-            %}
-            type="checkbox"
-            id="{{ b.id }}"
-            name="{{ b.name }}"
-            value="{{ b.id }}"
-          />
-          {{ b.name }}</label
-        >
-        {% endif %}
-        {% endfor %}
-      </div>
-      <div class="tab">
-        <h4>Choose vegetables and fruit:</h4>
-        <div class="processimg">
-          <img
-            class="rounded-pill"
-            src="{{ url_for('static', filename='img/dan-gold.jpg') }}"
-            alt="Photo by Dan Gold on Unsplash"
-            style="width:100%"
-          />
-        </div>
-        <br>
-        {% for t in ingr %}
-        {% if t.phase=="v&f" %}
-        <label for="{{ t.id }}">
-          <input
-            {%
-            if
-            t.id
-            in
-            bowlsIn
-            %}
-            checked
-            {%
-            endif
-            %}
-            type="checkbox"
-            id="{{ t.id }}"
-            name="{{ t.name }}"
-            value="{{ t.id }}"
-          />
-          {{ t.name }}</label
-        >
-        {% endif %}
-        {% endfor %}
-      </div>
-      <div class="tab">
-        <h4>Choose a texture:</h4>
-        <div class="processimg">
-          <img
-            class="rounded-pill"
-            src="{{ url_for('static', filename='img/ella-olsson.jpg') }}"
-            alt="Photo by Ella Olsson on Unsplash"
-            style="width:100%"
-          />
-        </div>
-        <br>
-        {% for x in ingr %}
-          {% if x.phase=="texture" %}
-        <label for="{{ x.id }}">
-          <input
-            {%
-            if
-            x.id
-            in
-            bowlsIn
-            %}
-            checked
-            {%
-            endif
-            %}
-            type="checkbox"
-            id="{{ x.id }}"
-            name="{{ x.name }}"
-            value="{{ x.id }}"
-          />
-          {{ x.name }}</label
-        >
-        {% endif %}
-        {% endfor %}
-      </div>
-      <div class="tab">
-        <h4>Choose a protein:</h4>
-        <div class="processimg">
-          <img
-            class="rounded-pill"
-            src="{{ url_for('static', filename='img/milada-vigerova.jpg') }}"
-            alt="Photo by Milada Vigerova on Unsplash"
-            style="width:100%"
-          />
-        </div>
-        <br>
-        {% for p in ingr%}
-          {% if p.phase=="protein" %}
-          <label for="{{ p.id }}">
-          <input
-            {%
-            if
-            p.id
-            in
-            bowlsIn
-            %}
-            checked
-            {%
-            endif
-            %}
-            type="checkbox"
-            id="{{ p.id }}"
-            name="{{ p.name }}"
-            value="{{ p.id }}"
-          />
-          {{ p.name }}</label
-        >
-        {% endif %}
-        {% endfor %}
-      </div>
-      <div class="tab">
-        <h4>Add some saltiness</h4>
-        <div class="processimg">
-          <img
-            class="rounded-pill"
-            src="{{ url_for('static', filename='img/jez-timms.jpg') }}"
-            alt="Photo by Jez Timms on Unsplash"
-            style="width:100%"
-          />
-        </div>
-        <br>
-        {% for s in ingr %}
-          {% if s.phase=="saltiness" %}
-        <label for="{{ s.id }}">
-          <input
-            {%
-            if
-            s.id
-            in
-            bowlsIn
-            %}
-            checked
-            {%
-            endif
-            %}
-            type="checkbox"
-            id="{{ s.id }}"
-            name="{{ s.name }}"
-            value="{{ s.id }}"
-          />
-          {{ s.name }}</label
-        >
-         {% endif %}
-        {% endfor %}
-      </div>
-      <div class="tab">
-        <h4>Smoot it out</h4>
-        <div class="processimg">
-          <img
-            class="rounded-pill"
-            src="{{ url_for('static', filename='img/tom-hermans.jpg') }}"
-            alt="Photo by Tom Hermans on Unsplash"
-            style="width:100%"
-          />
-        </div>
-        <br>
-        {% for h in ingr %}
-        {% if h.phase=="smoot" %}
-        <label for="{{ h.id }}">
-          <input
-            {%
-            if
-            h.id
-            in
-            bowlsIn
-            %}
-            checked
-            {%
-            endif
-            %}
-            type="checkbox"
-            id="{{ h.id }}"
-            name="{{ h.name }}"
-            value="{{ h.id }}"
-          />
-          {{ h.name }}</label
-        >
-          {% endif %}
-        {% endfor %}
-      </div>
-      <div class="tab">
-        <h4>Sharpen it up</h4>
-        <div class="processimg">
-          <img
-            class="rounded-pill"
-            src="{{ url_for('static', filename='img/kai-pilger.jpg') }}"
-            alt="Photo by Kai Pilger on Unsplash"
-            style="width:100%"
-          />
-        </div>
-        <br>
-        {% for sh in ingr %}
-          {% if sh.phase=="sharpen" %}
-          <label for="{{ sh.id }}">
-          <input
-            {%
-            if
-            sh.id
-            in
-            bowlsIn
-            %}
-            checked
-            {%
-            endif
-            %}
-            type="checkbox"
-            id="{{ sh.id }}"
-            name="{{ sh.name }}"
-            value="{{ sh.id }}"
-          />
-          {{ sh.name }}</label
-        >
-        {% endif %}
-        {% endfor %}
-      </div>
-      <div class="tab">
-        <h4>Dress it</h4>
-        <div class="processimg">
-          <img
-            class="rounded-pill"
-            src="{{ url_for('static', filename='img/rawpixel.jpg') }}"
-            alt="Photo by rawpixel on Unsplash"
-            style="width:100%"
-          />
-        </div>
-        <br>
-        {% for d in ingr %}
-          {% if d.phase=="dressing" %}
-              <label for="{{ d.id }}">
-              <input
-                {%
-                if
-                d.id
-                in
-                bowlsIn
-                %}
-                checked
-                {%
-                endif
-                %}
-                type="checkbox"
-                id="{{ d.id }}"
-                name="{{ d.name }}"
-                value="{{ d.id }}"
-              />
-              {{ d.name }}</label
-            >
-          {% endif %}
-        {% endfor %}
-      </div>
-      <div class="tab">
-        <h4>Put a name to your bowl!</h4>
+      <div>
+        <h4>Make any changes to your bowl!</h4>
         <div style=" margin-left: 25%; padding: 10px">
           <div style="width:60%">
             <img
@@ -321,106 +40,228 @@
           </select>
         </p>
       </div>
-      <div style="overflow:auto;">
+
+      <div>
+        <h4>Base:</h4>
+        {% for b in ingr %}
+          {% if b.phase=="base" %}
+        <label for="{{ b.id }}">
+          <input
+            {%
+            if
+            b.id
+            in
+            bowlsIn
+            %}
+            checked
+            {%
+            endif
+            %}
+            type="checkbox"
+            id="{{ b.id }}"
+            name="{{ b.name }}"
+            value="{{ b.id }}"
+          />
+          {{ b.name }}</label
+        >
+        {% endif %}
+        {% endfor %}
+      </div>
+      <div>
+        <h4>Vegetables and fruit:</h4>
+        {% for t in ingr %}
+        {% if t.phase=="v&f" %}
+        <label for="{{ t.id }}">
+          <input
+            {%
+            if
+            t.id
+            in
+            bowlsIn
+            %}
+            checked
+            {%
+            endif
+            %}
+            type="checkbox"
+            id="{{ t.id }}"
+            name="{{ t.name }}"
+            value="{{ t.id }}"
+          />
+          {{ t.name }}</label
+        >
+        {% endif %}
+        {% endfor %}
+      </div>
+      <div>
+        <h4>Texture:</h4>
+        {% for x in ingr %}
+          {% if x.phase=="texture" %}
+        <label for="{{ x.id }}">
+          <input
+            {%
+            if
+            x.id
+            in
+            bowlsIn
+            %}
+            checked
+            {%
+            endif
+            %}
+            type="checkbox"
+            id="{{ x.id }}"
+            name="{{ x.name }}"
+            value="{{ x.id }}"
+          />
+          {{ x.name }}</label
+        >
+        {% endif %}
+        {% endfor %}
+      </div>
+      <div>
+        <h4>Protein:</h4>
+        {% for p in ingr%}
+          {% if p.phase=="protein" %}
+          <label for="{{ p.id }}">
+          <input
+            {%
+            if
+            p.id
+            in
+            bowlsIn
+            %}
+            checked
+            {%
+            endif
+            %}
+            type="checkbox"
+            id="{{ p.id }}"
+            name="{{ p.name }}"
+            value="{{ p.id }}"
+          />
+          {{ p.name }}</label
+        >
+        {% endif %}
+        {% endfor %}
+      </div>
+      <div>
+        <h4>Saltiness</h4>
+        {% for s in ingr %}
+          {% if s.phase=="saltiness" %}
+        <label for="{{ s.id }}">
+          <input
+            {%
+            if
+            s.id
+            in
+            bowlsIn
+            %}
+            checked
+            {%
+            endif
+            %}
+            type="checkbox"
+            id="{{ s.id }}"
+            name="{{ s.name }}"
+            value="{{ s.id }}"
+          />
+          {{ s.name }}</label
+        >
+         {% endif %}
+        {% endfor %}
+      </div>
+      <div>
+        <h4>Smoot it out</h4>
+        {% for h in ingr %}
+        {% if h.phase=="smoot" %}
+        <label for="{{ h.id }}">
+          <input
+            {%
+            if
+            h.id
+            in
+            bowlsIn
+            %}
+            checked
+            {%
+            endif
+            %}
+            type="checkbox"
+            id="{{ h.id }}"
+            name="{{ h.name }}"
+            value="{{ h.id }}"
+          />
+          {{ h.name }}</label
+        >
+          {% endif %}
+        {% endfor %}
+      </div>
+      <div>
+        <h4>Sharpen it up</h4>
+        {% for sh in ingr %}
+          {% if sh.phase=="sharpen" %}
+          <label for="{{ sh.id }}">
+          <input
+            {%
+            if
+            sh.id
+            in
+            bowlsIn
+            %}
+            checked
+            {%
+            endif
+            %}
+            type="checkbox"
+            id="{{ sh.id }}"
+            name="{{ sh.name }}"
+            value="{{ sh.id }}"
+          />
+          {{ sh.name }}</label
+        >
+        {% endif %}
+        {% endfor %}
+      </div>
+      <div >
+        <h4>Dress it</h4>
+        {% for d in ingr %}
+          {% if d.phase=="dressing" %}
+              <label for="{{ d.id }}">
+              <input
+                {%
+                if
+                d.id
+                in
+                bowlsIn
+                %}
+                checked
+                {%
+                endif
+                %}
+                type="checkbox"
+                id="{{ d.id }}"
+                name="{{ d.name }}"
+                value="{{ d.id }}"
+              />
+              {{ d.name }}</label
+            >
+          {% endif %}
+        {% endfor %}
+      </div>
+            <div style="overflow:auto;">
         <div style="float:right;">
-          <button type="button" id="prevBtn" onclick="nextPrev(-1)">
-            Previous
-          </button>
-          <button type="button" id="nextBtn" onclick="nextPrev(1)">Next</button>
+          <a
+                class=" btn btn-danger btn-sm text-uppercase js-scroll-trigger"
+                href="{{ url_for('userHome') }}"
+                >Discard changes</a
+              >
+          <button type="submit" class = "btn btn-success btn-sm text-uppercase js-scroll-trigger" id="nextBtn">Save changes</button>
+
         </div>
       </div>
-      <!-- Circles which indicates the steps of the form: -->
-      <div style="text-align:center;margin-top:40px;">
-        <span class="step"></span>
-        <span class="step"></span>
-        <span class="step"></span>
-        <span class="step"></span>
-        <span class="step"></span>
-        <span class="step"></span>
-        <span class="step"></span>
-        <span class="step"></span>
-        <span class="step"></span>
-      </div>
+
     </form>
 
-    <script>
-      var currentTab = 0; // Current tab is set to be the first tab (0)
-      showTab(currentTab); // Display the current tab
-
-      function showTab(n) {
-        // This function will display the specified tab of the form...
-        var x = document.getElementsByClassName("tab");
-        x[n].style.display = "block";
-        //... and fix the Previous/Next buttons:
-        if (n == 0) {
-          document.getElementById("prevBtn").style.display = "none";
-        } else {
-          document.getElementById("prevBtn").style.display = "inline";
-        }
-        if (n == x.length - 1) {
-          document.getElementById("nextBtn").innerHTML = "Submit";
-        } else {
-          document.getElementById("nextBtn").innerHTML = "Next";
-        }
-        //... and run a function that will display the correct step indicator:
-        fixStepIndicator(n);
-      }
-
-      function nextPrev(n) {
-        // This function will figure out which tab to display
-        var x = document.getElementsByClassName("tab");
-        // Exit the function if any field in the current tab is invalid:
-        if (n == 1 && !validateForm()) return false;
-        // Hide the current tab:
-        x[currentTab].style.display = "none";
-        // Increase or decrease the current tab by 1:
-        currentTab = currentTab + n;
-        // if you have reached the end of the form...
-        if (currentTab >= x.length) {
-          // ... the form gets submitted:
-          document.getElementById("regForm").submit();
-          return false;
-        }
-        // Otherwise, display the correct tab:
-        showTab(currentTab);
-      }
-
-      function validateForm() {
-        // This function deals with validation of the form fields
-        var x,
-          y,
-          i,
-          valid = true;
-        x = document.getElementsByClassName("tab");
-        y = x[currentTab].getElementsByTagName("input");
-        // A loop that checks every input field in the current tab:
-        for (i = 0; i < y.length; i++) {
-          // If a field is empty...
-          if (y[i].value == "") {
-            // add an "invalid" class to the field:
-            y[i].className += " invalid";
-            // and set the current valid status to false
-            valid = false;
-          }
-        }
-        // If the valid status is true, mark the step as finished and valid:
-        if (valid) {
-          document.getElementsByClassName("step")[currentTab].className +=
-            " finish";
-        }
-        return valid; // return the valid status
-      }
-
-      function fixStepIndicator(n) {
-        // This function removes the "active" class of all steps...
-        var i,
-          x = document.getElementsByClassName("step");
-        for (i = 0; i < x.length; i++) {
-          x[i].className = x[i].className.replace(" active", "");
-        }
-        //... and adds the "active" class on the current step:
-        x[n].className += " active";
-      }
-    </script>
     {% endblock %}
 
