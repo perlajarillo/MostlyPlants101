@@ -1,11 +1,11 @@
 {% extends "main.html" %} {% block content %}
 
-<div class="container">
+<div class="container top-bottom-margins">
   <div class="intro-text">
     <a
       class="btn btn-primary btn-xl text-uppercase js-scroll-trigger"
       href="{{ url_for('makebowl') }}"
-      >Make new bowl</a
+      >Make a new bowl</a
     >
   </div>
 </div>
@@ -22,7 +22,7 @@
   {% endif %} {% endwith %}
 </div>
 <!-- Bowls Grid -->
-<section class="bg-light" id="bowl">
+<section id="bowl">
   <div class="container">
     <div class="row">
       <div class="col-lg-12 text-center">
@@ -48,7 +48,7 @@
         <div class="row">
           <div class="col-md-4 col-sm-6 bowl-item">
             {% for b in usersBowls %} {%if b.type=="Vegetarian"%}
-            <div class="bowl-caption" style="margin-top:10px">
+            <div class="bowl-caption bg-light" style="margin-top:10px">
               <h4>{{ b.name }}</h4>
               <a
                 class="btn btn-danger btn-sm text-uppercase js-scroll-trigger"
@@ -69,7 +69,7 @@
         <div class="row">
           <div class="col-md-4 col-sm-6 bowl-item">
             {% for b in usersBowls %} {%if b.type=="Vegan"%}
-            <div class="bowl-caption" style="margin-top:10px">
+            <div class="bowl-caption bg-light" style="margin-top:10px">
               <h4>{{ b.name }}</h4>
               <a
                 class="btn btn-danger btn-sm text-uppercase js-scroll-trigger"
@@ -90,7 +90,7 @@
         <div class="row">
           <div class="col-md-4 col-sm-6 bowl-item">
             {% for b in usersBowls %} {%if b.type=="Contains meat"%}
-            <div class="bowl-caption" style="margin-top:10px">
+            <div class="bowl-caption bg-light" style="margin-top:10px">
               <h4>{{ b.name }}</h4>
               <a
                 class="btn btn-danger btn-sm text-uppercase js-scroll-trigger"
