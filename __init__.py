@@ -70,7 +70,8 @@ def gconnect():
 
     try:
         # Upgrade the authorization code into a credentials object
-	oauth_flow = flow_from_clientsecrets('/var/www/html/bowls101/client_secrets.json', scope='')
+        oauth_flow = flow_from_clientsecrets(
+            '/var/www/html/bowls101/client_secrets.json', scope='')
         oauth_flow.redirect_uri = 'postmessage'
         credentials = oauth_flow.step2_exchange(code)
     except FlowExchangeError:
@@ -190,13 +191,30 @@ def disconnect():
     return redirect(url_for('showIndex'))
 
 
-# JSON APIs dislay Bowls created
-@app.route('/bowls/JSON')
+# JSON APIs display Bowls created
+@app.route('/api/bowls')
+@login_required
 def bowlsJSON():
-    if 'username' not in login_session:
-        return redirect('/login')
     bowls_ingredients = session.query(Bowl_Ingredient).all()
-    return jsonify(BowlsIngredients=[i.serialize for i in bowls_ingredients])
+    return jsonify(BowlsIngredients=[b.serialize for b in bowls_ingredients])
+
+
+# JSON APIs display ingredients
+@app.route('/api/ingredients')
+def ingredientsJSON():
+    ingredients = session.query(Ingredient).all()
+    return jsonify(Ingredients=[i.serialize for i in ingredients])
+
+
+# JSON APIs display ingredients by origin
+@app.route('/api/ingredients/filterby/<string:origin>')
+def ingredientsByOrigin(origin):
+    try:
+        ingredients = session.query(
+            Ingredient).filter_by(origin=origin).all()
+        return jsonify(Ingredients=[i.serialize for i in ingredients])
+    except NoResultFound:
+        return None
 
 
 # Route for index

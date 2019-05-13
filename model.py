@@ -76,9 +76,9 @@ class Bowl_Ingredient(Base):
         """Return bowl's ingredient in easily serializeable format"""
         return {
             'bowl_id': self.bowl_id,
-            'ingredient_id': self.ingredient_id,
-            'id': self.id,
+            'ingredient_id': self.ingredient_id
         }
+
 
 db_string = config.db_credentials_string
 engine = create_engine(db_string)
