@@ -140,7 +140,9 @@ The response would be similar to this:
 
 `"BowlsIngredients": [ { "bowl_id": 3, "ingredient_id": 26 }, { "bowl_id": 3, "ingredient_id": 34 }, { "bowl_id": 3, "ingredient_id": 3 }, { "bowl_id": 3, "ingredient_id": 42 }, { "bowl_id": 3, "ingredient_id": 20 }, { "bowl_id": 3, "ingredient_id": 30 }, { "bowl_id": 3, "ingredient_id": 13 },}`
 
-It is recommended to try this endpoint first using a tool like [Postman](https://www.getpostman.com/).
+#### Try it first
+
+It is recommended to try this endpoints first using a tool like [Postman](https://www.getpostman.com/).
 
 ## Contributor Guidelines
 
