@@ -81,11 +81,11 @@ You will also need to create a file named config.py and set client_id variable w
 
 `client_id="your-clientid-goes-here"`
 
-Also, you will need to set the db_credentials_string with the database URL to connect with your database server. 
+Also, you will need to set the db_credentials_string with the database URL to connect with your database server.
 
 `db_credentials_string = "your-database-URL"`
 
-If you want to know more about database URL for engine configuration see  [Engine Configuration — SQLAlchemy 1.3 Documentation](https://docs.sqlalchemy.org/en/13/core/engines.html#postgresql).
+If you want to know more about database URL for engine configuration see [Engine Configuration — SQLAlchemy 1.3 Documentation](https://docs.sqlalchemy.org/en/13/core/engines.html#postgresql).
 
 ### 8. Start the application
 
@@ -96,6 +96,51 @@ Once you have all the dependencies and database ready, start the application by 
 ## How to use Mostly Plants 101
 
 To start creating bowls, log in into the app using your Google credentials. You will be redirected after some seconds to your principal page, where you can start interacting with the app: create, modify, delete a bowl. The bowls has been separated by categories: vegan, vegetarian and contains meat.
+
+## Mostly Plants 101 API
+
+Mostly Plants 101 provides access (in JSON format) to the whole list of ingredients available in the database. This list can be access publicly through this end point:
+
+`http://mostlyplants101.com/api/ingredients/`
+
+### Ingredient's keys
+
+| id                                  | name               | origin                                                | phase                                                                     |
+| ----------------------------------- | :----------------- | ----------------------------------------------------- | ------------------------------------------------------------------------- |
+| Ingredient's identification number. | Ingredient's name. | Origin of the ingredient: animal, vegetable or grain. | The common use of the ingredient in dishes: base, texture, dressing, etc. |
+
+#### Example of ingredients response
+
+`{ "Ingredients": [ { "id": 1, "name": "Spinach", "origin": "vegetable", "phase": "base" }, { "id": 2, "name": "Lettuce", "origin": "vegetable", "phase": "base" }, ... }`
+
+#### Filtering by origin
+
+The list of ingredients can be filtered by origin field using the endpoint:
+`http://mostlyplants101.com/api/ingredients/filterby/<string: origin>`
+
+Example: `http://mostlyplants101.com/api/ingredients/filterby/vegetable`
+
+The response would be similar to this:
+
+`{ "Ingredients": [ { "id": 1, "name": "Spinach", "origin": "vegetable", "phase": "base" }, { "id": 2, "name": "Lettuce", "origin": "vegetable", "phase": "base" }, { "id": 3, "name": "Kale", "origin": "vegetable", "phase": "base" }, ...}`
+
+### Getting access to the bowls created
+
+The API also provides an endpoint to see all the bowls created and their ingredients.
+
+`http://mostlyplants101.com/api/bowls`
+
+| bowl_id                       | ingredient_id                      |
+| ----------------------------- | ---------------------------------- |
+| Bowl's identification number. | Ingredient's identification number |
+
+You must have an account in Mostly Plants 101 in order to get access to this information.
+
+The response would be similar to this:
+
+`"BowlsIngredients": [ { "bowl_id": 3, "ingredient_id": 26 }, { "bowl_id": 3, "ingredient_id": 34 }, { "bowl_id": 3, "ingredient_id": 3 }, { "bowl_id": 3, "ingredient_id": 42 }, { "bowl_id": 3, "ingredient_id": 20 }, { "bowl_id": 3, "ingredient_id": 30 }, { "bowl_id": 3, "ingredient_id": 13 },}`
+
+It is recommended to try this endpoint first using a tool like [Postman](https://www.getpostman.com/).
 
 ## Contributor Guidelines
 
