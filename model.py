@@ -19,6 +19,12 @@ class User(Base):
                          cascade="all, delete, delete-orphan")
 
 
+class Preparation(Base):
+    __tablename__ = "preparation"
+    id = Column(Integer, primary_key=True)
+    preparation = Column(String(200))
+
+
 class Ingredient(Base):
     __tablename__ = 'ingredient'
 
@@ -26,6 +32,7 @@ class Ingredient(Base):
     name = Column(String(30), nullable=False)
     origin = Column(String(40))
     phase = Column(String(40))
+    preparation = Column(Integer, ForeignKey('preparation.id'))
     isInBowl = relationship("Bowl_Ingredient", back_populates='ingredient',
                             cascade="all, delete, delete-orphan")
 
