@@ -1,7 +1,7 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
-from model import Ingredient, Base
+from model import Ingredient, Base, Preparation
 import config
 
 db_string = config.db_credentials_string
@@ -12,6 +12,45 @@ Base.metadata.bind = engine
 DBSession = sessionmaker(bind=engine)
 
 session = DBSession()
+# Preparations
+# Spinach, lettuce, arugula, spring greens
+greens = Preparation(preparation="Remove any damaged outer leaves. Cleaned them with cold water to remove any dirt on the leaves. Chop big leaves as you desired. Remove the excess of water and place the greens in a salad bowl.")
+session.add(greens)
+session.commit()
+
+# Kale, collard greens
+specialGreens = Preparation(
+    preparation="Remove any damaged outer leaves. Cleaned them with cold water to remove any dirt on the leaves. Fold the leaves in half with the stem at the crease, and cut or tear the stem off. Remove the excess of water and place the greens in a salad bowl. Optional for a smoother flavor: Whisk some olive oil and salt. Massage until the leaves starts to soften and wilt, 2 to 3 minutes.")
+session.add(specialGreens)
+session.commit()
+
+# Beans, chickpeas, garbanzo beans
+beans = Preparation(
+    preparation="Prepare in advance: Sort and rinse under running water. Quick preparation method: Boil into 8 cups of water for around 2 minutes. Remove from heat; cover with a lid and let stand 1 hour. Drain water and rinse. Cooking after preparing:  Add 8 cups of salted water and bring to boil. Reduce heat and simmer with partial cover for 2 to 3 hours until tender. Stir occasionally.")
+session.add(beans)
+session.commit()
+
+# for vegetables
+vegetables = Preparation(preparation="Chop into small pieces")
+session.add(vegetables)
+session.commit()
+
+# for herbs
+herbs = Preparation(preparation="Cut into very small pieces")
+session.add(vegetables)
+session.commit()
+
+# for dressing
+dressing = Preparation(
+    preparation="Gradually drizzle along the side of the bowl.")
+session.add(dressing)
+session.commit()
+
+# for no cooking requirement ingredients like almonds, cheese,
+nocooking = Preparation(
+    preparation="Add to the bowl the rest of the ingredients.")
+session.add(dressing)
+session.commit()
 
 # bases
 ingredient1 = Ingredient(name="Spinach", origin="vegetable", phase="base")
