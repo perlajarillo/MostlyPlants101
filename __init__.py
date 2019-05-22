@@ -232,7 +232,7 @@ def makebowl():
     if request.method == 'POST':
         f = request.form
         newBowl = Bowl(
-            name=f['bowl_name'], user_id=user_id, type=f['type'])
+            name=f['bowl_name'], calories=f['calories'], carbs=f['carbs'], fat=f['fat'], protein=f['protein'], user_id=user_id, type=f['type'])
         session.add(newBowl)
         session.commit()
         bowl_id = newBowl.id
@@ -262,6 +262,10 @@ def editbowl(bowl_id):
         f = request.form
         bData.name = f['bowl_name']
         bData.type = f['type']
+        bData.calories = f['calories']
+        bData.carbs = f['carbs']
+        bData.fat = f['fat']
+        bData.protein = f['protein']
         session.add(bData)
         session.commit()
         # Delete previous ingredients so we can add the new selected, if any

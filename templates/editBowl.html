@@ -4,6 +4,7 @@
     href="{{url_for('static',filename='css/make.bowl.css')}}"
     rel="stylesheet"
   />
+
   </head>
     <form
       id="regForm"
@@ -21,7 +22,19 @@
               alt="Photo by Anna Pelzer on Unsplash"
               style="width:100%"
             />
+
           </div>
+        </div>
+        <h5>Nutrition Facts</h5>
+        <div id="console-ingredients" class="input-group col-auto mb-2 bg-light">
+            <label class="col-form-label" for="calories">Calories:</label>
+            <input type="text" readonly class="form-control-plaintext text-info mb-2" id="calories" name="calories" value="{{ bData.calories }}">
+            <label class="col-form-label" for="carbs">Carbs: </label>
+            <input id="carbs" name="carbs" readonly class="form-control-plaintext text-warning mb-2 " value="{{ bData.carbs }}">
+            <label class="col-form-label" for="fat">Fat: </label>
+            <input id="fat" name="fat" readonly class="form-control-plaintext  text-danger mb-2" value="{{ bData.fat }}">
+            <label class="col-form-label" for="carbs">Protein: </label>
+            <input id="protein" name="protein" readonly class="form-control-plaintext  text-success mb-2" value="{{ bData.protein }}">
         </div>
         <p>
           <input
@@ -59,8 +72,10 @@
             %}
             type="checkbox"
             id="{{ b.id }}"
-            name="{{ b.name }}"
             value="{{ b.id }}"
+            name="{{ b.calories }}|{{ b.carbs }}|{{ b.fat }}|{{ b.protein }}"
+            data-toggle="toggle"
+            class="ingredients"
           />
           {{ b.name }}</label
         >
@@ -85,8 +100,10 @@
             %}
             type="checkbox"
             id="{{ t.id }}"
-            name="{{ t.name }}"
             value="{{ t.id }}"
+            name="{{ t.calories }}|{{ t.carbs }}|{{ t.fat }}|{{ t.protein }}"
+            data-toggle="toggle"
+            class="ingredients"
           />
           {{ t.name }}</label
         >
@@ -111,8 +128,10 @@
             %}
             type="checkbox"
             id="{{ x.id }}"
-            name="{{ x.name }}"
             value="{{ x.id }}"
+            name="{{ x.calories }}|{{ x.carbs }}|{{ x.fat }}|{{ x.protein }}"
+            data-toggle="toggle"
+            class="ingredients"
           />
           {{ x.name }}</label
         >
@@ -137,8 +156,10 @@
             %}
             type="checkbox"
             id="{{ p.id }}"
-            name="{{ p.name }}"
             value="{{ p.id }}"
+            name="{{ p.calories }}|{{ p.carbs }}|{{ p.fat }}|{{ p.protein }}"
+            data-toggle="toggle"
+            class="ingredients"
           />
           {{ p.name }}</label
         >
@@ -163,8 +184,10 @@
             %}
             type="checkbox"
             id="{{ s.id }}"
-            name="{{ s.name }}"
             value="{{ s.id }}"
+            name="{{ s.calories }}|{{ s.carbs }}|{{ s.fat }}|{{ s.protein }}"
+            data-toggle="toggle"
+            class="ingredients"
           />
           {{ s.name }}</label
         >
@@ -189,8 +212,10 @@
             %}
             type="checkbox"
             id="{{ h.id }}"
-            name="{{ h.name }}"
             value="{{ h.id }}"
+            name="{{ h.calories }}|{{ h.carbs }}|{{ h.fat }}|{{ h.protein }}"
+            data-toggle="toggle"
+            class="ingredients"
           />
           {{ h.name }}</label
         >
@@ -215,8 +240,10 @@
             %}
             type="checkbox"
             id="{{ sh.id }}"
-            name="{{ sh.name }}"
             value="{{ sh.id }}"
+            name="{{ sh.calories }}|{{ sh.carbs }}|{{ sh.fat }}|{{ sh.protein }}"
+            data-toggle="toggle"
+            class="ingredients"
           />
           {{ sh.name }}</label
         >
@@ -241,8 +268,10 @@
                 %}
                 type="checkbox"
                 id="{{ d.id }}"
-                name="{{ d.name }}"
                 value="{{ d.id }}"
+                name="{{ d.calories }}|{{ d.carbs }}|{{ d.fat }}|{{ d.protein }}"
+                data-toggle="toggle"
+                class="ingredients"
               />
               {{ d.name }}</label
             >
