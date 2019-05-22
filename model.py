@@ -1,4 +1,4 @@
-from sqlalchemy import Column, ForeignKey, Integer, String
+from sqlalchemy import Column, ForeignKey, Integer, String, Float
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 from sqlalchemy import create_engine
@@ -32,7 +32,12 @@ class Ingredient(Base):
     name = Column(String(30), nullable=False)
     origin = Column(String(40))
     phase = Column(String(40))
-    preparation = Column(Integer, ForeignKey('preparation.id'))
+    calories = Column(Float,  nullable=True)
+    carbs = Column(Float, nullable=True)
+    fat = Column(Float,  nullable=True)
+    protein = Column(Float, nullable=True)
+    portionSize = Column(Float,  nullable=True)
+    preparation = Column(Integer, ForeignKey('preparation.id'), nullable=True)
     isInBowl = relationship("Bowl_Ingredient", back_populates='ingredient',
                             cascade="all, delete, delete-orphan")
 
@@ -44,6 +49,12 @@ class Ingredient(Base):
             'origin': self.origin,
             'id': self.id,
             'phase': self.phase,
+            'calories': self.calories,
+            'carbs': self.carbs,
+            'fat': self.fat,
+            'protein': self.protein,
+            'portionSize': self.portionSize,
+            'preparation': self.preparation,
         }
 
 
@@ -53,6 +64,10 @@ class Bowl(Base):
     id = Column(Integer, primary_key=True)
     name = Column(String(50), nullable=False)
     type = Column(String(40))
+    calories = Column(Float,  nullable=True)
+    carbs = Column(Float, nullable=True)
+    fat = Column(Float, nullable=True)
+    protein = Column(Float, nullable=True)
     user_id = Column(Integer, ForeignKey('user.id'))
     user = relationship("User", back_populates="bowls")
     ingredients = relationship("Bowl_Ingredient", back_populates='bowl',
@@ -65,6 +80,10 @@ class Bowl(Base):
             'name': self.name,
             'type': self.type,
             'id': self.id,
+            'calories': self.calories,
+            'carbs': self.carbs,
+            'fat': self.fat,
+            'protein': self.protein,
             'user_id': self.user_id,
         }
 
