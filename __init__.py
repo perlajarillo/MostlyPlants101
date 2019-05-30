@@ -2,7 +2,7 @@ from flask import Flask, render_template, url_for, request, redirect, flash
 from flask import jsonify
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from model import Base, Ingredient, Bowl, Bowl_Ingredient, User
+from model import Base, Ingredient, Bowl, Bowl_Ingredient, User, Preparation
 import random
 import string
 from flask import session as login_session
@@ -15,6 +15,8 @@ import requests
 import config
 from functools import wraps
 from sqlalchemy.orm.exc import NoResultFound
+from operator import itemgetter
+import itertools
 
 
 app = Flask(__name__)
@@ -305,6 +307,41 @@ def deletebowl(bowl_id):
         return redirect(url_for('userHome'))
     else:
         return render_template("deleteBowl.html", bowlData=bowlData)
+
+
+# Generates bowl recipe
+@app.route('/bowlrecipe/<int:bowl_id>', methods=['GET'])
+@login_required
+@auth_required
+def bowlrecipe(bowl_id):
+    bData = session.query(Bowl).filter_by(id=bowl_id).one()
+
+    data = (session
+            .query(Preparation, Ingredient, Bowl_Ingredient)
+            .filter(Ingredient.preparation == Preparation.id)
+            .filter(Ingredient.id == Bowl_Ingredient.ingredient_id)
+            .filter(Bowl_Ingredient.bowl_id == bowl_id)
+            .order_by(Preparation.id).all())
+
+    prep = []
+    ing = []
+    for i in data:
+        ing.append({"name": i.Ingredient.name,
+                    "portionSize": i.Ingredient.portionSize})
+        prep.append({"ingredient": i.Ingredient.name,
+                     "phase": i.Ingredient.phase,
+                     "id_prep": i.Preparation.id,
+                     "preparation": i.Preparation.preparation})
+    recipe = []
+    ingredients = ''
+    for key, group in itertools.groupby(prep, lambda item: item["id_prep"]):
+        for i in group:
+            ingredients = ingredients + i.get('ingredient') + ", "
+        ingredients = ingredients[:-2]
+        recipe.append({"ingredients": ingredients, "preparation": i.get(
+            'preparation'), "phase": i.get('phase')})
+        ingredients = ''
+    return render_template("bowlrecipe.html", ing=ing, recipe=recipe, bData=bData)
 
 
 # Route for user home, this is the page the user will be redirected after login
