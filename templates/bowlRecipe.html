@@ -1,0 +1,122 @@
+{% extends "main.html" %} {% block content %}
+<head>
+  <link
+    href="{{url_for('static',filename='css/make.bowl.css')}}"
+    rel="stylesheet"
+  />
+</head>
+<form id="regForm">
+  <h1>{{ bData.name }} recipe</h1>
+  <div>
+    <h5>Nutrition Facts <small>(Per portion)</small></h5>
+
+    <div id="console-nutrition" class="input-group col-auto mb-2 bg-light">
+      <label class="col-form-label" for="calories">Calories:</label>
+      <input
+        type="text"
+        readonly
+        class="form-control-plaintext text-info mb-2"
+        id="calories"
+        name="calories"
+        value="{{ bData.calories }}"
+      />
+      <label class="col-form-label" for="carbs">Carbs: </label>
+      <input
+        id="carbs"
+        name="carbs"
+        readonly
+        class="form-control-plaintext text-warning mb-2 "
+        value="{{ bData.carbs }}"
+      />
+      <label class="col-form-label" for="fat">Fat: </label>
+      <input
+        id="fat"
+        name="fat"
+        readonly
+        class="form-control-plaintext  text-danger mb-2"
+        value="{{ bData.fat }}"
+      />
+      <label class="col-form-label" for="carbs">Protein: </label>
+      <input
+        id="protein"
+        name="protein"
+        readonly
+        class="form-control-plaintext  text-success mb-2"
+        value="{{ bData.protein }}"
+      />
+    </div>
+    <div class="form-group">
+      <label for="sel1">Number of portions:</label>
+      <select class="form-control" onchange="setPortions()" id="portions">
+        <option>1</option>
+        <option>2</option>
+        <option>3</option>
+        <option>4</option>
+        <option>5</option>
+        <option>6</option>
+        <option>7</option>
+        <option>8</option>
+        <option>9</option>
+        <option>10</option>
+      </select>
+    </div>
+    <div>
+      <h5>Ingredients</h5>
+      <div>
+        <ul>
+          {% for i in ing %}
+
+          <li>
+            <div class="input-group">
+              <span>{{ i.name }}:</label>
+              <label id="portion" name="{{i.portionSize}}" class="cups">{{i.portionSize}}</label>
+              <span>cups</span>
+            </div>
+          </li>
+
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+    <div>
+      <h5>Preparation</h5>
+      <p>
+        1. Gather all the ingredients and follow the instructions for every
+        group.
+      </p>
+      {% for r in recipe %}
+      <dl>
+        <dt>{{ r.ingredients }}:</dt>
+
+        <dd>- {{ r.preparation }}</dd>
+      </dl>
+      {% endfor %}
+      <p>
+        2. Mix well all the ingredients in a bowl and serve immediately.
+      </p>
+    </div>
+    <div style="overflow:auto;">
+      <div style="float:right;">
+        <a
+          class=" btn btn-danger btn-sm text-uppercase js-scroll-trigger"
+          href="{{ url_for('userHome') }}"
+          >Return</a
+        >
+      </div>
+    </div>
+
+  </div>
+</form>
+<script>
+  function setPortions()
+  {
+    var portions=document.getElementById("portions").value;
+    var cups=document.getElementsByClassName("cups");
+    var i;
+    for (i = 0; i < cups.length; i++) {
+          cupsValue=cups[i].getAttribute("name")*portions;
+          cups[i].innerHTML =cupsValue;
+    }
+  }
+</script>
+    {% endblock %}
