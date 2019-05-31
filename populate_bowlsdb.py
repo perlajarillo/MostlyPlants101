@@ -103,7 +103,12 @@ rice = Preparation(preparation="Pour water into a large pot, use 1 3/4 cups of w
 session.add(rice)
 session.commit()
 
-# 17. for dressing (always keep at the buttom)
+# 17. for tofu, cheese, avocado
+tofu = Preparation(preparation="Chop into cubes.")
+session.add(tofu)
+session.commit()
+
+# 18. for dressing (always keep at the buttom)
 dressing = Preparation(
     preparation="Gradually drizzle along the side of the bowl over the other ingredients.")
 session.add(dressing)
@@ -146,7 +151,7 @@ session.add(ingredient6)
 session.commit()
 
 ingredient7 = Ingredient(name="Peas", origin="vegetable", phase="v&f",
-                         calories=99, carbs=17, fat=0.7, protein=7.1, portionSize=0.5, preparation=7)
+                         calories=50, carbs=8.5, fat=0.35, protein=3.55, portionSize=0.25, preparation=7)
 session.add(ingredient7)
 session.commit()
 
@@ -156,7 +161,7 @@ session.add(ingredient8)
 session.commit()
 
 ingredient9 = Ingredient(name="Corn", origin="vegetable", phase="v&f", calories=53,
-                         carbs=10.5, fat=0.8, protein=2.3, portionSize=0.5, preparation=7)
+                         carbs=5.25, fat=0.4, protein=1.15, portionSize=0.25, preparation=7)
 session.add(ingredient9)
 session.commit()
 
@@ -336,13 +341,38 @@ session.commit()
 
 
 ingredient41 = Ingredient(
-    name="Balsamic Vinaigrette Dressing", origin="vegetable", phase="dressing", calories=71, carbs=3.6, fat=6.2, protein=0.1, portionSize=0.125, preparation=17)
+    name="Balsamic Vinaigrette Dressing", origin="vegetable", phase="dressing", calories=71, carbs=3.6, fat=6.2, protein=0.1, portionSize=0.125, preparation=18)
 session.add(ingredient41)
 session.commit()
 
 ingredient42 = Ingredient(name="Yogurt dressing",
-                          origin="animal", phase="dressing", calories=128, carbs=3, fat=12, protein=2, portionSize=0.125, preparation=17)
+                          origin="animal", phase="dressing", calories=128, carbs=3, fat=12, protein=2, portionSize=0.125, preparation=18)
 session.add(ingredient42)
+session.commit()
+
+ingredient43 = Ingredient(name="Tofu",
+                          origin="vegetable", phase="protein", calories=94, carbs=2.3, fat=6, protein=10, portionSize=0.5, preparation=17)
+session.add(ingredient43)
+session.commit()
+
+ingredient44 = Ingredient(name="Tomato", origin="vegetable", phase="v&f",
+                          calories=18, carbs=3.9, fat=0.2, protein=0.9, portionSize=0.5, preparation=4)
+session.add(ingredient44)
+session.commit()
+
+ingredient45 = Ingredient(name="Zucchini", origin="vegetable", phase="v&f",
+                          calories=9, carbs=1.52, fat=0, protein=0.7, portionSize=0.5, preparation=4)
+session.add(ingredient45)
+session.commit()
+
+ingredient46 = Ingredient(name="Avocado", origin="vegetable", phase="v&f",
+                          calories=58.5, carbs=3, fat=5.25, protein=0.72, portionSize=0.25, preparation=17)
+session.add(ingredient46)
+session.commit()
+
+ingredient47 = Ingredient(name="Radish", origin="vegetable", phase="sharpen",
+                          calories=4.5, carbs=1, fat=0.05, protein=0.2, portionSize=0.25, preparation=4)
+session.add(ingredient47)
 session.commit()
 
 print "Ingredients added"
