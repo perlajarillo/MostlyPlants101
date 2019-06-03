@@ -10,6 +10,8 @@
       id="regForm"
       action="{{ url_for('editbowl', bowl_id = bData.id) }}"
       method="post"
+      class="was-validated is-invalid"
+
     >
       <h1>Editing bowl</h1>
       <div>
@@ -36,23 +38,30 @@
             <label class="col-form-label" for="carbs">Protein: </label>
             <input id="protein" name="protein" readonly class="form-control-plaintext  text-success mb-2" value="{{ bData.protein }}">
         </div>
-        <p>
+        <div class="input-group mb-4" style="position: relative">
           <input
-            placeholder="Bowl's name..."
-            oninput="this.className = ''"
-            name="bowl_name"
             value="{{ bData.name }}"
+            type="text"
+            class="form-control"
+            id="bowl_name"
+            placeholder="Bowl's name..."
+            name="bowl_name"
+            required
           />
-        </p>
-        <p>
+          <div class="invalid-tooltip">
+            Please put name to the bowl.
+          </div>
+        </div>
+        </div>
+        <div>
           <label for="type">Select a type:</label>
           <select class="form-control" id="type" name="type">
             <option {% if bData.type == "Vegan" %} selected {% endif%}>Vegan</option>
             <option {% if bData.type == "Vegetarian" %} selected {% endif%}>Vegetarian</option>
             <option {% if bData.type == "Contains meat" %} selected {% endif%}>Contains meat</option>
           </select>
-        </p>
-      </div>
+        </div>
+
 
       <div>
         <h4>Base:</h4>
@@ -278,19 +287,32 @@
           {% endif %}
         {% endfor %}
       </div>
-            <div style="overflow:auto;">
+      <div id="error" name="error" class="text-danger">
+
+      </div>
+      <div style="overflow:auto;">
         <div style="float:right;">
           <a
                 class=" btn btn-danger btn-sm text-uppercase js-scroll-trigger"
                 href="{{ url_for('userHome') }}"
                 >Discard changes</a
               >
-          <button type="submit" class = "btn btn-success btn-sm text-uppercase js-scroll-trigger" id="nextBtn">Save changes</button>
+          <button type="button" class ="btn btn-success btn-sm text-uppercase js-scroll-trigger" id="nextBtn" onclick="validateForm()">Save changes</button>
 
         </div>
       </div>
 
     </form>
+    <script>
+    function validateForm(){
+
+    // If the valid status is true, mark the step as finished and valid:
+    if (inputValidation()) {
+      document.getElementById("regForm").submit();
+    }
+    return valid; // return the valid status
+  }
+</script>
 
     {% endblock %}
 
