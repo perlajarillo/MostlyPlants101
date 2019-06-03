@@ -287,19 +287,32 @@
           {% endif %}
         {% endfor %}
       </div>
-            <div style="overflow:auto;">
+      <div id="error" name="error" class="text-danger">
+
+      </div>
+      <div style="overflow:auto;">
         <div style="float:right;">
           <a
                 class=" btn btn-danger btn-sm text-uppercase js-scroll-trigger"
                 href="{{ url_for('userHome') }}"
                 >Discard changes</a
               >
-          <button type="submit" class ="btn btn-success btn-sm text-uppercase js-scroll-trigger" id="nextBtn">Save changes</button>
+          <button type="button" class ="btn btn-success btn-sm text-uppercase js-scroll-trigger" id="nextBtn" onclick="validateForm()">Save changes</button>
 
         </div>
       </div>
 
     </form>
+    <script>
+    function validateForm(){
+
+    // If the valid status is true, mark the step as finished and valid:
+    if (inputValidation()) {
+      document.getElementById("regForm").submit();
+    }
+    return valid; // return the valid status
+  }
+</script>
 
     {% endblock %}
 
