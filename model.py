@@ -36,7 +36,7 @@ class Ingredient(Base):
     carbs = Column(Float, nullable=True)
     fat = Column(Float,  nullable=True)
     protein = Column(Float, nullable=True)
-    portionSize = Column(Float,  nullable=True)
+    portionsize = Column(Float, nullable=True)
     preparation = Column(Integer, ForeignKey('preparation.id'), nullable=True)
     isInBowl = relationship("Bowl_Ingredient", back_populates='ingredient',
                             cascade="all, delete, delete-orphan")
@@ -53,7 +53,7 @@ class Ingredient(Base):
             'carbs': self.carbs,
             'fat': self.fat,
             'protein': self.protein,
-            'portionSize': self.portionSize,
+            'portionsize': self.portionsize,
             'preparation': self.preparation,
         }
 

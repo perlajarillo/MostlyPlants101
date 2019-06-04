@@ -240,7 +240,7 @@ def makebowl():
         bowl_id = newBowl.id
         for key in f.keys():
             for value in f.getlist(key):
-                if ((key != 'bowl_name') and (key != 'type')):
+                if ((key != 'bowl_name') and (key != 'type') and (key != 'calories') and (key != 'carbs') and (key != 'fat') and (key != 'protein')):
                     newIngredientBowl = Bowl_Ingredient(
                         bowl_id=bowl_id, ingredient_id=value)
                     session.add(newIngredientBowl)
@@ -276,7 +276,7 @@ def editbowl(bowl_id):
         session.commit()
         for key in f.keys():
             for value in f.getlist(key):
-                if ((key != 'bowl_name') and (key != 'type')):
+                if ((key != 'bowl_name') and (key != 'type') and (key != 'calories') and (key != 'carbs') and (key != 'fat') and (key != 'protein')):
                     newIngredientBowl = Bowl_Ingredient(
                         bowl_id=bowl_id, ingredient_id=value)
                     session.add(newIngredientBowl)
@@ -327,7 +327,7 @@ def bowlrecipe(bowl_id):
     ing = []
     for i in data:
         ing.append({"name": i.Ingredient.name,
-                    "portionSize": i.Ingredient.portionSize})
+                    "portionSize": i.Ingredient.portionsize})
         prep.append({"ingredient": i.Ingredient.name,
                      "phase": i.Ingredient.phase,
                      "id_prep": i.Preparation.id,
@@ -341,7 +341,7 @@ def bowlrecipe(bowl_id):
         recipe.append({"ingredients": ingredients, "preparation": i.get(
             'preparation'), "phase": i.get('phase')})
         ingredients = ''
-    return render_template("bowlrecipe.html", ing=ing, recipe=recipe, bData=bData)
+    return render_template("bowlRecipe.html", ing=ing, recipe=recipe, bData=bData)
 
 
 # Route for user home, this is the page the user will be redirected after login
